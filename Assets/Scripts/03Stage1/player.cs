@@ -8,9 +8,12 @@ public class player : MonoBehaviour {
 	Slider btslider;
 	public bool temperature = true;
 	public bool canthrow = false;
+	public bool slash = false;
 	public int throwthing;
+	public int slashthing;
 	public GameObject[] throwthings = new GameObject[3];
-	public GameObject instantiatepos;
+	public GameObject[] slashthings = new GameObject[3];
+	public GameObject instantiatePos;
 	// Use this for initialization
 	void Start () {
 		hpslider = GameObject.Find ("Canvas").transform.FindChild("HPSlider").gameObject.GetComponent<Slider> ();
@@ -41,7 +44,19 @@ public class player : MonoBehaviour {
 
 	if (canthrow == true) {
 			if(Input.GetKeyUp("space")){
-				Instantiate(throwthings[throwthing],this.transform.position,instantiatepos.gameObject.transform.rotation);
+				Instantiate(throwthings[throwthing],this.transform.position,instantiatePos.gameObject.transform.rotation);
+			}
+		}
+
+	if (slash == true) {
+			int count = 0;
+			GameObject Slash;
+			if (Input.GetKeyUp ("b")) {
+				if(count == 0){
+				Slash = Instantiate (slashthings [slashthing], this.transform.position + new Vector3(0,1,0), instantiatePos.gameObject.transform.rotation) as GameObject;
+				}else{
+					//Slash.transform.rotation 
+				}
 			}
 		}
 	}
