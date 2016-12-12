@@ -24,7 +24,7 @@ public class sm_Stage1 : MonoBehaviour {
 				bgSprite[i,j] = Instantiate(panel,new Vector3(0.5f+j,29.5f-i,0),Quaternion.identity) as GameObject;
 				bgSprite[i,j].name = i.ToString()+j.ToString();
 				bgSprite[i,j].GetComponent<SpriteRenderer>().sprite = sprite[int.Parse(allData[i,j])];
-				if(allData[i,j] == "4" || allData[i,j] == "5" || allData[i,j] == "6"){
+				if(allData[i,j] == "4" || allData[i,j] == "5" || allData[i,j] == "6"|| allData[i,j] == "7"){
 					bgSprite[i,j].AddComponent<BoxCollider2D>();
 				}
 			}

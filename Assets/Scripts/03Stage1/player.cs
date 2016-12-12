@@ -8,9 +8,16 @@ public class player : MonoBehaviour {
 	Slider btslider;
 	public bool temperature = true;
 	public bool canthrow = false;
+	public bool slash = false;
 	public int throwthing;
+	public int slashthing;
 	public GameObject[] throwthings = new GameObject[3];
-	public GameObject instantiatepos;
+	public GameObject[] slashthings = new GameObject[3];
+	public GameObject instantiatePos;
+	public GameObject instantiatePos2;
+	public GameObject Slash;
+	public bool TimeManage = false;
+	public float time;
 	// Use this for initialization
 	void Start () {
 		hpslider = GameObject.Find ("Canvas").transform.FindChild("HPSlider").gameObject.GetComponent<Slider> ();
@@ -39,10 +46,16 @@ public class player : MonoBehaviour {
 			lifepoint -= 0.03f;
 		}
 
-	if (canthrow == true) {
-			if(Input.GetKeyUp("space")){
-				Instantiate(throwthings[throwthing],this.transform.position,instantiatepos.gameObject.transform.rotation);
+	if (TimeManage == true) {
+			if (time <= 1) {
+				time += Time.deltaTime;
+				instantiatePos2.gameObject.transform.rotation = Quaternion.Slerp (Quaternion.Euler (new Vector3 (0, 0, 90)), Quaternion.Euler (new Vector3 (0, 0, 0)), time * 2f);
 			}
+		}
+
+		if(time * 2  > 1){
+			TimeManage = false;
+			Destroy(Slash);
 		}
 	}
 
@@ -61,4 +74,17 @@ public class player : MonoBehaviour {
 		}
 	}
 
+	public void throwButton(){
+		if (canthrow == true) {
+			Instantiate (throwthings [throwthing], this.transform.position, instantiatePos.gameObject.transform.rotation);
+		}
+	}
+	public void slashButton(){
+		if (slash == true) {
+				Slash = Instantiate (slashthings [slashthing], this.transform.position + new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0))) as GameObject;
+				Slash.transform.SetParent(instantiatePos2.gameObject.transform);
+				time = 0;
+				TimeManage = true;
+			}
+	}
 }
